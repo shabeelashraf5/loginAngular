@@ -1,0 +1,67 @@
+<section class="" style="margin-top: 50px;">
+    <div class="container ">
+      <div class="row d-flex justify-content-center align-items-center ">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card" >
+            <div class="card-body text-center">
+  
+        
+                 
+  
+              <div class="container">
+                <form (ngSubmit)="onSubmit(form.value)" #form="ngForm" novalidate>
+                  <div class="mb-md-5 mt-md-4">
+                    <h2 class="fw-bold text-uppercase">CREATE ACCOUNT</h2>
+                    
+                    <div class="form-outline form-white">
+                      <input type="text" name="fname" id="typefsX" class="form-control form-control-lg" ngModel required placeholder="First Name" />
+                      <label class="form-label" for="typefsX"></label>
+                      <div *ngIf="form.controls['fname'].invalid && (form.controls['fname'].dirty || form.controls['fname'].touched)">
+                        <div class="text-danger" *ngIf="form.controls['fname'].hasError('required')"><p>First Name is Required</p></div>
+                      </div>
+                    </div>
+              
+                    <div class="form-outline form-white">
+                      <input type="text" name="lname" id="typelsX" class="form-control form-control-lg" ngModel required placeholder="Last Name" />
+                      <label class="form-label" for="typelsX"></label>
+                      <div *ngIf="form.controls['lname'].invalid && (form.controls['lname'].dirty || form.controls['lname'].touched)">
+                        <div class="text-danger" *ngIf="form.controls['lname'].hasError('required')"><p>Last Name is Required</p></div>
+                      </div>
+                    </div>
+              
+                    <div class="form-outline form-white">
+                      <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" ngModel required placeholder="Email" />
+                      <label class="form-label" for="typeEmailX"></label>
+                      <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+                        <div class="text-danger" *ngIf="form.controls['email'].hasError('required')">
+                          <p>Email is required</p></div>
+                        <div class="text-danger" *ngIf="form.controls['email'].hasError('email')"><p>Invalid Email</p></div>
+                      </div>
+                    </div>
+              
+                    <div class="form-outline form-white">
+                      <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" ngModel required placeholder="Password" />
+                      <label class="form-label" for="typePasswordX"></label>
+                      <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
+                        <div class="text-danger" *ngIf="form.controls['password'].hasError('required')"> <p>Password Required</p></div>
+                      </div>
+                    </div>
+              
+                    <button class="btn btn-outline-dark btn-lg" type="submit" [disabled]="form.invalid">Sign Up</button>
+                  </div>
+                  <p class="text-center text-muted mt-3 mb-0">Have already an account? <a routerLink="/login"
+                      class="fw-bold text-body"><u>Login here</u></a></p>
+                </form>
+              </div>
+              
+  
+            
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+

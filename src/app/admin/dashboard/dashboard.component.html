@@ -1,0 +1,226 @@
+<nav class="navbar navbar-light bg-dark">
+    <div class="container-fluid ">
+      <a class="navbar-brand text-white">Welcome to the Admin Dashboard</a>
+     
+      <a routerLink="/admin"><button class="btn btn-outline-info" type="button">Log Out</button></a>
+  
+    </div>
+    
+  </nav>
+  
+   <section class="p-md-5 mx-md-5 text-center text-lg-left grey z-depth-1">
+  
+        <div class="row d-flex justify-content-center">
+  
+          <div class="col-12 col-md-6">
+  
+          <div class="card">
+  
+                <div class="card-body text-center">
+  
+                <h3 class="font-weight-bold">Welcome !</h3>
+
+
+  
+              </div>
+                  
+            </div>
+
+
+
+            <div class="container mt-4">
+                <div class="row">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control mb-2" placeholder="Search" [(ngModel)]="searchTerm">
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addUserModal" data-bs-whatever="@mdo">Add</button>
+                    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="addUserModalLabel">Add User</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form (ngSubmit)="addRecord(form.value)" #form="ngForm" novalidate>
+                              <div class="mb-md-5 mt-md-4">
+                             
+                                
+                                <div class="form-outline form-white">
+                                  <input type="text" name="fname" id="typefsX" class="form-control form-control-lg" ngModel required placeholder="First Name" />
+                                  <label class="form-label" for="typefsX"></label>
+                                  <div *ngIf="form.controls['fname'].invalid && (form.controls['fname'].dirty || form.controls['fname'].touched)">
+                                    <div class="text-danger" *ngIf="form.controls['fname'].hasError('required')"><p>First Name is Required</p></div>
+                                  </div>
+                                </div>
+                          
+                                <div class="form-outline form-white">
+                                  <input type="text" name="lname" id="typelsX" class="form-control form-control-lg" ngModel required placeholder="Last Name" />
+                                  <label class="form-label" for="typelsX"></label>
+                                  <div *ngIf="form.controls['lname'].invalid && (form.controls['lname'].dirty || form.controls['lname'].touched)">
+                                    <div class="text-danger" *ngIf="form.controls['lname'].hasError('required')"><p>Last Name is Required</p></div>
+                                  </div>
+                                </div>
+                          
+                                <div class="form-outline form-white">
+                                  <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" ngModel required placeholder="Email" />
+                                  <label class="form-label" for="typeEmailX"></label>
+                                  <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+                                    <div class="text-danger" *ngIf="form.controls['email'].hasError('required')">
+                                      <p>Email is required</p></div>
+                                    <div class="text-danger" *ngIf="form.controls['email'].hasError('email')"><p>Invalid Email</p></div>
+                                  </div>
+                                </div>
+                          
+                                <div class="form-outline form-white">
+                                  <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" ngModel required placeholder="Password" />
+                                  <label class="form-label" for="typePasswordX"></label>
+                                  <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
+                                    <div class="text-danger" *ngIf="form.controls['password'].hasError('required')"> <p>Password Required</p></div>
+                                  </div>
+                                </div>
+                          
+                                
+                              </div>
+                             
+                           
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-outline-dark btn-lg" type="submit" [disabled]="form.invalid">Add User</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              
+                <table class="table mt-3">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th> <!-- Add the Last Name column -->
+                        <th>Email</th> <!-- Add the Email column -->
+                        <th>Password</th> <!-- Add the Password column -->
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let record of filteredRecords">
+                        <td>{{ record._id }}</td>
+                        <td>{{ record.fname }}</td>
+                        <td>{{ record.lname }}</td> <!-- Display Last Name -->
+                        <td>{{ record.email }}</td> <!-- Display Email -->
+                        <td>{{ record.password }}</td> <!-- Display Password -->
+                        <td>
+                          
+                       
+                          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editUserModal" data-bs-whatever="@mdo" (click)="editUsers(record)">Edit</button>
+
+                            <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="editUserModalLabel">Edit User</h1>
+                                   
+                                  </div>
+                                  <div class="modal-body">
+                                    <form (ngSubmit)="editUser(userToEdit)" #form="ngForm" novalidate>
+                                      <div class="mb-md-5 mt-md-4">
+                                     
+                                        
+                                        <div class="form-outline form-white">
+                                          <input type="text" name="fname" id="typefsX" class="form-control form-control-lg" [(ngModel)]="userToEdit.fname" required placeholder="First Name" />
+                                          <label class="form-label" for="typefsX"></label>
+                                          <div *ngIf="form.controls['fname'].invalid && (form.controls['fname'].dirty || form.controls['fname'].touched)">
+                                            <div class="text-danger" *ngIf="form.controls['fname'].hasError('required')"><p>First Name is Required</p></div>
+                                          </div>
+                                        </div>
+                                  
+                                        <div class="form-outline form-white">
+                                          <input type="text" name="lname" id="typelsX" class="form-control form-control-lg" [(ngModel)]="userToEdit.lname" required placeholder="Last Name" />
+                                          <label class="form-label" for="typelsX"></label>
+                                          <div *ngIf="form.controls['lname'].invalid && (form.controls['lname'].dirty || form.controls['lname'].touched)">
+                                            <div class="text-danger" *ngIf="form.controls['lname'].hasError('required')"><p>Last Name is Required</p></div>
+                                          </div>
+                                        </div>
+                                  
+                                        <div class="form-outline form-white">
+                                          <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="userToEdit.email" required placeholder="Email" />
+                                          <label class="form-label" for="typeEmailX"></label>
+                                          <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+                                            <div class="text-danger" *ngIf="form.controls['email'].hasError('required')">
+                                              <p>Email is required</p></div>
+                                            <div class="text-danger" *ngIf="form.controls['email'].hasError('email')"><p>Invalid Email</p></div>
+                                          </div>
+                                        </div>
+                                  
+                                        <div class="form-outline form-white">
+                                          <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" [(ngModel)]="userToEdit.password" required placeholder="Password" />
+                                          <label class="form-label" for="typePasswordX"></label>
+                                          <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
+                                            <div class="text-danger" *ngIf="form.controls['password'].hasError('required')"> <p>Password Required</p></div>
+                                          </div>
+                                        </div>
+                                  
+                                        
+                                      </div>
+                                     
+                                   
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button class="btn btn-outline-dark btn-lg" type="submit" [disabled]="form.invalid">Update User</button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+    
+    
+
+                            <button class="btn btn-danger" (click)="deleteRecord(record._id)">Delete</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              
+                <nav aria-label="Page navigation">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item" *ngFor="let page of pages" [ngClass]="{'active': currentPage === page}">
+                      <a class="page-link" href="#" (click)="changePage(page)">{{ page }}</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+
+              
+          
+           </div>
+          
+  
+        </div>
+        
+  
+      </section>
+  
+  
+  
+  
+  <section class="p-md-2 mx-md-2 text-center text-lg-left grey z-depth-1">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-12">
+        
+       
+          
+  </div>
+       </div>   
+     
+
+  
+  </section>
